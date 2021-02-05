@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="da">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="">
+</head>
+
+<body>
+
+    <article id="liste">
+        <p></p>
+        <img src="" alt="">
+    </article>
+    <script>
+        let dyr = [{
+                "navn": "Gris",
+                "type": "Pattedyr",
+                "billede": "http://mabe-kea.dk/E19/pics/pig.png",
+                "levested": "svinefarme"
+            },
+            {
+                "navn": "Frø",
+                "type": "Reptil",
+                "billede": "http://mabe-kea.dk/E19/pics/pig.png",
+                "levested": "Sump"
+            }, {
+                "navn": "Ræv",
+                "type": "Pattedyr",
+                "billede": "http://mabe-kea.dk/E19/pics/pig.png",
+                "levested": "Skoven"
+            }, {
+                "navn": "Sild",
+                "type": "Fisk",
+                "billede": "http://mabe-kea.dk/E19/pics/pig.png",
+                "levested": "Havet"
+            }, {
+                "navn": "Krokodille",
+                "type": "Reptil",
+                "billede": "http://mabe-kea.dk/E19/pics/pig.png",
+                "levested": "Sump"
+            }
+        ]
+
+        console.log(dyr);
+
+        document.addEventListener("DOMContentLoaded", start);
+
+        function start() {
+            console.log(`DOM er loadet`);
+            const listevisning = document.querySelector("#liste");
+            dyr.forEach(dyr => {
+                listevisning.innerHTML += `<p>${dyr.navn} ${dyr.type} ${dyr.levested}`
+
+
+            })
+
+        }
+
+        //        const destination = document.querySelector("#dyr");
+        //        destination.querySelector("p").textContent = `navn: ${dyr.navn} type: ${dyr.type} billede: ${dyr.billede} levested: ${dyr.levested}`;
+        //        destination.querySelector("img").src = dyr.billede;
+        //        const destination = document.querySelector("#dyr");
+        //        destination.querySelector("img").src = dyr.billede;
+        //        destination.querySelector("p").textContent += dyr.type;
+    </script>
+</body></html>

@@ -11,15 +11,17 @@
 <body>
 
     <article id="dyr">
-        <p></p>
+        <h3></h3>
         <img src="" alt="">
+        <p>Type:</p>
+        <p class="levested">Levested:</p>
     </article>
     <script>
         let dyr = {
             "navn": "Gris",
             "type": "Pattedyr",
             "billede": "http://mabe-kea.dk/E19/pics/pig.png",
-            "levested": "svinefarme"
+            "levested": "Svinefarme"
         }
 
         console.log(`navn: ${dyr.navn} type: ${dyr.type} billede: ${dyr.billede} levested: ${dyr.levested}`)
@@ -31,10 +33,9 @@
         }
 
         const destination = document.querySelector("#dyr");
-        destination.querySelector("p").textContent = `navn: ${dyr.navn} type: ${dyr.type} billede: ${dyr.billede} levested: ${dyr.levested}`;
+        destination.querySelector("h3").textContent = dyr.navn;
         destination.querySelector("img").src = dyr.billede;
-
+        destination.querySelector("p").textContent += dyr.type;
+        destination.querySelector(".levested").textContent += dyr.levested;
     </script>
-</body>
-
-</html>
+</body></html>
