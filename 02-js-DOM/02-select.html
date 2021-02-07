@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="da">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+</head>
+
+<body>
+    <header>
+        <h1>Titel</h1>
+    </header>
+    <main>
+        <h2>Undertitel</h2>
+        <section>
+            <article id="a1">
+                <img src="https://placeimg.com/400/300/any" alt="Auto billede">
+                <h3>Article 1</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus illum porro, rerum explicabo vitae amet sapiente incidunt nisi ipsum in.</p>
+            </article>
+            <article id="a2"> <img src="https://placeimg.com/400/300/arcitecture" alt="Auto billede">
+                <h3>Article 2</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eaque ab placeat omnis cupiditate quo, facilis dicta quis ipsum expedita repudiandae.</p>
+            </article>
+        </section>
+    </main>
+</body>
+<style>
+    main {
+        margin: 5vw;
+    }
+
+    section {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        grid-gap: 20px;
+    }
+
+    img {
+        width: 100%;
+    }
+
+    article {
+        border: 1px solid black;
+        margin: ;
+    }
+</style>
+<script>
+    const overskrift = document.querySelector("h1");
+    overskrift.textContent;
+    console.log(overskrift.textContent);
+</script></html>
