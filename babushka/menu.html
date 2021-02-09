@@ -15,10 +15,10 @@
         border-radius: 25px;
     }
 
-    main {
+    #liste {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        grid-gap: 1rem;
+        grid-gap: 2rem;
     }
 
     article {
@@ -26,32 +26,51 @@
         border-radius: 25px;
         padding: 1rem;
     }
+
+    nav {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 1rem;
+        padding: 20px;
+    }
+
+    button {
+        cursor: pointer;
+    }
+
+    .valgt {
+        background-color: rosybrown;
+    }
 </style>
 
 <body>
-    <header>
-        <h1>Menu</h1>
-        <nav>
-            <button data-retter="alle">Alle</button>
-            <button data-retter="Forretter" class="valgt">Forretter</button>
-            <button data-retter="Hovedretter">Hovedretter</button>
-            <button data-retter="Hovedretter">Desserter</button>
-        </nav>
-    </header>
-    <main></main>
-    <template>
+    <main>
+        <header>
+            <h1>Menu</h1>
+            <nav>
+                <button data-retter="alle">Alle</button>
+                <button data-retter="forretter" class="valgt">Forretter</button>
+                <button data-retter="hovedretter">Hovedretter</button>
+                <button data-retter="desserter">Desserter</button>
+            </nav>
+        </header>
+        <section id="liste"></section>
+        <template>
 
-        <article>
-            <img src="" alt="" class="billede">
-            <h2 class="navn"></h2>
-            <p class="kategori"></p>
-            <p class="kortbeskrivelse"></p>
-            <p class="pris"></p>
-            <p class="oprindelsesregion"></p>
-        </article>
-    </template>
-
+            <article>
+                <img src="" class="billede">
+                <h2 class="navn"></h2>
+                <p class="kategori"></p>
+                <p class="kortbeskrivelse"></p>
+                <p class="pris"></p>
+                <p class="oprindelsesregion"></p>
+            </article>
+        </template>
+    </main>
     <script>
+        const header = document.querySelector("header h1");
+        let json
         const url = "https://babushka-dd8a.restdb.io/rest/menu";
         const medieurl = "https://babushka-dd8a.restdb.io/media/";
         const options = {
@@ -62,28 +81,55 @@
         };
         async function hentdata() {
             const result = await fetch(url, options);
-            const json = await result.json();
+            json = await result.json();
             vis(json);
         }
 
+        document.addEventListener("DOMContentLoaded", start)
+        let retter;
+        let filter = "alle";
 
-        const main = document.querySelector("main");
-        const template = document.querySelector("template").content;
+
+        // første funktion der kaldes efter DOM er loaded
+        function start() {
+            const filterKnapper = document.querySelectorAll("nav button");
+            filterKnapper.forEach(knap => knap.addEventListener("click", filtrerRetter));
+            hentdata();
+        }
+
+        //eventlistener knyttet til knapperne der vælger hvilket filter, der er aktiveret
+        function filtrerRetter() {
+            filter = this.dataset.retter;
+            document.querySelector(".valgt").classList.remove("valgt");
+            this.classList.add("valgt")
+            header.textContent = this.textContent;
+            vis();
+        }
 
 
-        function vis(json) {
+        const liste = document.querySelector("#liste");
+        //        const template = document.querySelector("template").content;
+
+
+        function vis() {
             console.log("vis");
             console.log(json);
+            const dest = document.querySelector("#liste"); // container til articles med en person
+            const skabelon = document.querySelector("template").content; // select indhold af html skabelon (article)
+            dest.textContent = "";
             json.forEach(ret => {
-                const klon = template.cloneNode(true);
-                klon.querySelector(".billede").src = medieurl + ret.billede[0];
-                klon.querySelector(".navn").textContent = ret.navn;
-                klon.querySelector(".pris").textContent = ret.pris;
-                klon.querySelector(".kategori").textContent = ret.navn;
-                klon.querySelector(".kortbeskrivelse").textContent = ret.kortbeskrivelse;
-                klon.querySelector(".oprindelsesregion").textContent = ret.oprindelsesregion;
-                main.appendChild(klon);
-
+                console.log("retter", ret.alle);
+                if (filter == ret.kategori || filter == "alle") {
+                    const klon = skabelon.cloneNode(true);
+                    klon.querySelector(".billede").src = medieurl + ret.billede[0];
+                    klon.querySelector(".billede").alt = medieurl + ret.billede[0];
+                    klon.querySelector(".navn").textContent = ret.navn;
+                    klon.querySelector(".pris").textContent = ret.pris;
+                    klon.querySelector(".kategori").textContent = ret.navn;
+                    klon.querySelector(".kortbeskrivelse").textContent = ret.kortbeskrivelse;
+                    klon.querySelector(".oprindelsesregion").textContent = ret.oprindelsesregion;
+                    dest.appendChild(klon);
+                }
             })
         }
 
